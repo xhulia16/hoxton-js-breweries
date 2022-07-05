@@ -42,45 +42,59 @@ function renderBrewery() {
     //    </ul>
     //  </article>
 
-    let artcileEl=document.createElement('article')
-    
-    let ulEl=document.createElement('ul')
-    ulEl.className='breweries-list'
+    let artcileEl = document.createElement('article')
 
-    let liEl=document.createElement('li')
+    let ulEl = document.createElement('ul')
+    ulEl.className = 'breweries-list'
 
-    let h2El=document.createElement('h2')
-    h2El.textContent='Snow Belt Brew'
+    let liEl = document.createElement('li')
 
-    let divEl=document.createElement('div')
-    divEl.className='type'
-    divEl.textContent='micro'
+    let h2El = document.createElement('h2')
+    h2El.textContent = 'Snow Belt Brew'
 
-    let sectionEl1=document.createElement('section')
-    sectionEl1.className='address'
+    let divEl = document.createElement('div')
+    divEl.className = 'type'
+    divEl.textContent = 'micro'
 
-    let h3El=document.createElement('h3')
-    h3El.textContent='Address:'
+    let sectionEl1 = document.createElement('section')
+    sectionEl1.className = 'address'
 
-    let pEl1=document.createElement('p')
-    pEl1.textContent='9511 Kile Rd'
+    let h3El = document.createElement('h3')
+    h3El.textContent = 'Address:'
 
-    let pEl2=document.createElement('p')
-    pEl2.textContent='Chardon, 44024'
+    let pEl1 = document.createElement('p')
+    pEl1.textContent = '9511 Kile Rd'
 
-    let sectionEl2=document.createElement('section')
-    sectionEl2.className='phone'
+    let pEl2 = document.createElement('p')
+    pEl2.textContent = 'Chardon, 44024'
 
-    let h3El2=document.createElement('h3')
-    h3El2.textContent='Phone:'
+    sectionEl1.append(h3El, pEl1, pEl2)
 
-    let pEl3=document.createElement('p')
-    pEl3.textContent='N/A'
+    let sectionEl2 = document.createElement('section')
+    sectionEl2.className = 'phone'
 
-    let sectionEl3=document.createElement('section')
-    sectionEl3.className='link'
+    let h3El2 = document.createElement('h3')
+    h3El2.textContent = 'Phone:'
 
-    let linkEl=document.createElement('a')
-    linkEl.textContent='Visit Website'
-    linkEl.href='https://www.youtube.com/'
+    let pEl3 = document.createElement('p')
+    pEl3.textContent = 'N/A'
+
+    sectionEl2.append(h3El2, pEl3)
+
+    let sectionEl3 = document.createElement('section')
+    sectionEl3.className = 'link'
+
+    let linkEl = document.createElement('a')
+    linkEl.textContent = 'Visit Website'
+    linkEl.href = 'https://www.youtube.com/'
+
+    sectionEl3.append(linkEl)
+    liEl.append(h2El, divEl, sectionEl1, sectionEl2, sectionEl3)
+    ulEl.append(liEl)
+    artcileEl.append(ulEl)
+    mainEl.append(artcileEl)
+
+
 }  
+
+renderBrewery()
