@@ -1,18 +1,51 @@
 // Write your code here
-let state = {
+type Brewery = 
+    {
+      address_2: string,
+      address_3: string,
+      brewery_type: string,
+      city: string,
+      country: string,
+      county_province: string,
+      created_at: string,
+      id: number,
+      latitude: string,
+      longitude: string,
+      name: string,
+      obdb_id: string,
+      phone: string,
+      postal_code: string,
+      state: string,
+      street: string,
+      updated_at: string,
+      website_url: string
+    }
+  
+    type State={
+        UsState: '',
+        breweries: Brewery[]
+    }
+
+let state: State = {
     UsState: '',
-    breweries: []
+    breweries:[]
 }
 
+function getBreweriesForState(){
+console.log(`THIS IS THE STATE:${state.UsState}`)
+fetch(`https://api.openbrewerydb.org/breweries?by_city=${state.UsState}`)
+    .then(resp => resp.json())
+}
 
-
-function listenToSelectStateForm() {
+function listenToSelectStateForm () {
     let formEl = document.querySelector<HTMLFormElement>('#select-state-form')
     formEl?.addEventListener('submit', function (event) {
-        event.preventDefault()
-        console.log(`looking for brewereies in: ${formEl['select-state'].value}`)
+      event.preventDefault()
+      let UsState = formEl['select-state'].value
+      state.UsState = UsState
+      getBreweriesForState()
     })
-}
+  }
 
 listenToSelectStateForm()
 function renderBrewery() {
