@@ -87,7 +87,7 @@ let mainEl = document.querySelector('main')
 
         let ulEl = document.createElement('ul')
         ulEl.className = 'breweries-list'
-        
+
         for (let item of state.breweries) {
         let liEl = document.createElement('li')
 
@@ -96,7 +96,7 @@ let mainEl = document.querySelector('main')
 
         let divEl = document.createElement('div')
         divEl.className = 'type'
-        divEl.textContent = 'micro'
+        divEl.textContent = item.brewery_type
 
         let sectionEl1 = document.createElement('section')
         sectionEl1.className = 'address'
@@ -105,10 +105,10 @@ let mainEl = document.querySelector('main')
         h3El.textContent = 'Address:'
 
         let pEl1 = document.createElement('p')
-        pEl1.textContent = '9511 Kile Rd'
+        pEl1.textContent = item.street
 
         let pEl2 = document.createElement('p')
-        pEl2.textContent = 'Chardon, 44024'
+        pEl2.textContent = item.city
 
         sectionEl1.append(h3El, pEl1, pEl2)
 
@@ -116,10 +116,10 @@ let mainEl = document.querySelector('main')
         sectionEl2.className = 'phone'
 
         let h3El2 = document.createElement('h3')
-        h3El2.textContent = 'Phone:'
+        h3El2.textContent = item.phone
 
         let pEl3 = document.createElement('p')
-        pEl3.textContent = 'N/A'
+        pEl3.textContent = item.postal_code
 
         sectionEl2.append(h3El2, pEl3)
 
@@ -128,7 +128,7 @@ let mainEl = document.querySelector('main')
 
         let linkEl = document.createElement('a')
         linkEl.textContent = 'Visit Website'
-        linkEl.href = 'https://www.youtube.com/'
+        linkEl.href = item.website_url
 
         sectionEl3.append(linkEl)
         liEl.append(h2El, divEl, sectionEl1, sectionEl2, sectionEl3)
