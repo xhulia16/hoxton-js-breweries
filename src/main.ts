@@ -37,7 +37,10 @@ let city=state.UsState.replace(/ /g,'_')
 console.log(city)
 fetch(`https://api.openbrewerydb.org/breweries?by_city=${city}&per_page=10`)
     .then(resp => resp.json())
-    .then(dataFromServer=>console.log(dataFromServer))
+    .then(dataFromServer=>{
+        state.breweries=dataFromServer
+        renderBrewery()
+    })
 }
 
 function listenToSelectStateForm () {
