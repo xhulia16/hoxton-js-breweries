@@ -32,9 +32,7 @@ let state: State = {
 }
 
 function getBreweriesForState() {
-    console.log(`THIS IS THE STATE:${state.UsState}`)
     let city = state.UsState.replace(/ /g, '_')
-    console.log(city)
     fetch(`https://api.openbrewerydb.org/breweries?by_city=${city}&per_page=10`)
         .then(resp => resp.json())
         .then(dataFromServer => {
@@ -56,7 +54,7 @@ function listenToSelectStateForm() {
 listenToSelectStateForm()
 
 function render() {
-let mainEl = document.querySelector('main')
+    let mainEl = document.querySelector('main')
     if (mainEl === null) return
     mainEl.textContent = ''
     //<article>
@@ -83,12 +81,12 @@ let mainEl = document.querySelector('main')
 
 
 
-        let artcileEl = document.createElement('article')
+    let artcileEl = document.createElement('article')
 
-        let ulEl = document.createElement('ul')
-        ulEl.className = 'breweries-list'
+    let ulEl = document.createElement('ul')
+    ulEl.className = 'breweries-list'
 
-        for (let item of state.breweries) {
+    for (let item of state.breweries) {
         let liEl = document.createElement('li')
 
         let h2El = document.createElement('h2')
