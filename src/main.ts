@@ -33,8 +33,11 @@ let state: State = {
 
 function getBreweriesForState(){
 console.log(`THIS IS THE STATE:${state.UsState}`)
-fetch(`https://api.openbrewerydb.org/breweries?by_city=${state.UsState}`)
+let city=state.UsState.replace(/ /g,'_')
+console.log(city)
+fetch(`https://api.openbrewerydb.org/breweries?by_city=${city}&per_page=10`)
     .then(resp => resp.json())
+    .then(dataFromServer=>console.log(dataFromServer))
 }
 
 function listenToSelectStateForm () {
@@ -48,6 +51,7 @@ function listenToSelectStateForm () {
   }
 
 listenToSelectStateForm()
+
 function renderBrewery() {
 
     let mainEl = document.querySelector('main')
