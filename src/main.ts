@@ -23,51 +23,24 @@ type Brewery =
 
 type State = {
     UsState: '',
+    name: '',
     breweries: Brewery[]
 }
 
 let state: State = {
     UsState: '',
+    name: '',
     breweries: []
 }
-function renderHeader() {
-    let mainEl = document.querySelector('main')
-    if (mainEl === null) return
-    //    <h1>List of Breweries</h1>
-    //<header class="search-bar">
-    //  <form id="search-breweries-form" autocomplete="off">
-    //    <label for="search-breweries"><h2>Search breweries:</h2></label>
-    //    <input id="search-breweries" name="search-breweries" type="text" />
-    //  </form>
-    //</header>
 
-    let searchBreweryH1El = document.createElement('h1')
-    searchBreweryH1El.textContent = 'List of Breweries'
 
-    let searchBreweryHeaderEl = document.createElement('header')
-    searchBreweryHeaderEl.className = '"search-bar'
-
-    let searchBreweryFormEl = document.createElement('form')
-    searchBreweryFormEl.id = 'search-breweries-form'
-    searchBreweryFormEl.autocomplete = 'off'
-
-    let searchBreweryLabelEl = document.createElement('label')
-    searchBreweryLabelEl.htmlFor = 'search-breweries'
-
-    let searchBreweryH2El = document.createElement('h2')
-    searchBreweryH2El.textContent = 'Search breweries:'
-
-    let searchBreweryInput = document.createElement('input')
-    searchBreweryInput.id = 'search-breweries'
-    searchBreweryInput.name = 'search-breweries'
-    searchBreweryInput.type = 'text'
-
-    searchBreweryLabelEl.append(searchBreweryH2El)
-    searchBreweryFormEl.append(searchBreweryLabelEl, searchBreweryInput)
-    searchBreweryHeaderEl.append(searchBreweryFormEl)
-
-    mainEl.append(searchBreweryH1El, searchBreweryHeaderEl)
-
+function getBreweriesForName(){
+    fetch(`https://api.openbrewerydb.org/breweries?by_name=${state.name}`)
+    .then(resp => resp.json())
+    .then(dataFromServer => {
+        state.breweries = dataFromServer
+        renderBreweryList()
+    })
 }
 
 function getBreweriesForState() {
@@ -91,6 +64,54 @@ function listenToSelectStateForm() {
 }
 
 listenToSelectStateForm()
+
+function renderHeader() {
+    let mainEl = document.querySelector('main')
+    if (mainEl === null) return
+    //    <h1>List of Breweries</h1>
+    //<header class="search-bar">
+    //  <form id="search-breweries-form" autocomplete="off">
+    //    <label for="search-breweries"><h2>Search breweries:</h2></label>
+    //    <input id="search-breweries" name="search-breweries" type="text" />
+    //  </form>
+    //</header>
+
+    let searchBreweryH1El = document.createElement('h1')
+    searchBreweryH1El.textContent = 'List of Breweries'
+
+    let searchBreweryHeaderEl = document.createElement('header')
+    searchBreweryHeaderEl.className = '"search-bar'
+
+    let searchBreweryFormEl = document.createElement('form')
+    searchBreweryFormEl.id = 'search-breweries-form'
+    searchBreweryFormEl.autocomplete = 'off'
+    searchBreweryFormEl.addEventListener('submit', function (event) {
+        event.preventDefault()
+        let name = searchBreweryFormEl['search-breweries'].value
+        state.name = name
+        getBreweriesForName()
+        console.log(`the chosen name is:${name}`)
+
+    } )
+
+    let searchBreweryLabelEl = document.createElement('label')
+    searchBreweryLabelEl.htmlFor = 'search-breweries'
+
+    let searchBreweryH2El = document.createElement('h2')
+    searchBreweryH2El.textContent = 'Search breweries:'
+
+    let searchBreweryInput = document.createElement('input')
+    searchBreweryInput.id = 'search-breweries'
+    searchBreweryInput.name = 'search-breweries'
+    searchBreweryInput.type = 'text'
+
+    searchBreweryLabelEl.append(searchBreweryH2El)
+    searchBreweryFormEl.append(searchBreweryLabelEl, searchBreweryInput)
+    searchBreweryHeaderEl.append(searchBreweryFormEl)
+
+    mainEl.append(searchBreweryH1El, searchBreweryHeaderEl)
+
+}
 
 function renderBreweryList() {
     let mainEl = document.querySelector('main')
