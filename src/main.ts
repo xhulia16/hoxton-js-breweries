@@ -30,6 +30,45 @@ let state: State = {
     UsState: '',
     breweries: []
 }
+function renderHeader() {
+    let mainEl = document.querySelector('main')
+    if (mainEl === null) return
+    //    <h1>List of Breweries</h1>
+    //<header class="search-bar">
+    //  <form id="search-breweries-form" autocomplete="off">
+    //    <label for="search-breweries"><h2>Search breweries:</h2></label>
+    //    <input id="search-breweries" name="search-breweries" type="text" />
+    //  </form>
+    //</header>
+
+    let searchBreweryH1El = document.createElement('h1')
+    searchBreweryH1El.textContent = 'List of Breweries'
+
+    let searchBreweryHeaderEl = document.createElement('header')
+    searchBreweryHeaderEl.className = '"search-bar'
+
+    let searchBreweryFormEl = document.createElement('form')
+    searchBreweryFormEl.id = 'search-breweries-form'
+    searchBreweryFormEl.autocomplete = 'off'
+
+    let searchBreweryLabelEl = document.createElement('label')
+    searchBreweryLabelEl.htmlFor = 'search-breweries'
+
+    let searchBreweryH2El = document.createElement('h2')
+    searchBreweryH2El.textContent = 'Search breweries:'
+
+    let searchBreweryInput = document.createElement('input')
+    searchBreweryInput.id = 'search-breweries'
+    searchBreweryInput.name = 'search-breweries'
+    searchBreweryInput.type = 'text'
+
+    searchBreweryLabelEl.append(searchBreweryH2El)
+    searchBreweryFormEl.append(searchBreweryLabelEl, searchBreweryInput)
+    searchBreweryHeaderEl.append(searchBreweryFormEl)
+
+    mainEl.append(searchBreweryH1El, searchBreweryHeaderEl)
+
+}
 
 function getBreweriesForState() {
     let city = state.UsState.replace(/ /g, '_')
@@ -37,7 +76,7 @@ function getBreweriesForState() {
         .then(resp => resp.json())
         .then(dataFromServer => {
             state.breweries = dataFromServer
-            render()
+            renderBreweryList()
         })
 }
 
@@ -53,10 +92,10 @@ function listenToSelectStateForm() {
 
 listenToSelectStateForm()
 
-function render() {
+function renderBreweryList() {
     let mainEl = document.querySelector('main')
     if (mainEl === null) return
-    mainEl.textContent = ''
+   
     //<article>
     //    <ul class="breweries-list">
     //      <li>
@@ -137,5 +176,13 @@ function render() {
 
     }
 }
-render()
+function render() {
+    let mainEl = document.querySelector('main')
+    if (mainEl === null) return
+    mainEl.textContent = ''
+    renderHeader()
+    renderBreweryList()
+}
+
 listenToSelectStateForm()
+render()
